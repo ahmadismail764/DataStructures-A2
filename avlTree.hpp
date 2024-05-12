@@ -1,10 +1,19 @@
 #include <bits/stdc++.h>
-#include "avlNode.cpp"
 using namespace std;
 
 template <class T>
 class AVLTree
 {
+private:
+    template <class X>
+    class AVLNode
+    {
+    public:
+        T key;
+        AVLNode<T> *left, *right;
+        AVLNode(){left = right = nullptr;}
+        AVLNode(const T &el, AVLNode<X> *l = nullptr, AVLNode<X> *r = nullptr) : key(el), left(l), right(r) {}
+    };
 public:
     AVLNode<T> *root;
     AVLTree();
