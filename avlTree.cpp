@@ -257,6 +257,4 @@ int main()
     // cout << "In-order traversal of AVL tree after deletion: ";
     // avlTree.inorder(avlTree.root);
     // cout << endl;
-
-    return 0;
 }
