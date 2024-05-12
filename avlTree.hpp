@@ -1,32 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-template <class T>
+struct Node
+{
+    int key, height;
+    Node *left, *right;
+    Node() { left = right = nullptr; }
+    Node(const int &el, Node *l = nullptr, Node *r = nullptr) : key(el), left(l), right(r) {}
+};
+
 class AVLTree
 {
-private:
-    template <class X>
-    class AVLNode
-    {
-    public:
-        T key;
-        AVLNode<T> *left, *right;
-        AVLNode(){left = right = nullptr;}
-        AVLNode(const T &el, AVLNode<X> *l = nullptr, AVLNode<X> *r = nullptr) : key(el), left(l), right(r) {}
-    };
 public:
-    AVLNode<T> *root;
+    Node *root;
+    /* Managerial */
     AVLTree();
+    void clearHelper(Node *node);
     void clear();
     bool isEmpty();
-    void visit(AVLNode<T> *node);
-    T *search(T &el);
+    void visit(Node *node);
+    int getBalanceFactor(Node *node);
+    Node *rightRotate(Node *node);
+    Node *leftRotate(Node *node);
+    /* Managerial */
+
+    Node *nodewithMinimumVal(Node *node);
+    Node *search(int &el);
     void breadthFirst();
     /* Depth-First Traversal starts here */
-    void inorder(AVLNode<T> *p);
-    void preorder(AVLNode<T> *p);
-    void postorder(AVLNode<T> *p);
+    void inorder(Node *p);
+    void preorder(Node *p);
+    void postorder(Node *p);
     /* Depth-First Traversal ends here*/
-    void insert(const T &el);
-    void deleteByCopying(AVLNode<T> *&node);
+    Node *insert(Node *node, int key);
+    Node *deleteNode(Node *root, int key);
 };
