@@ -1,35 +1,36 @@
 #include <bits/stdc++.h>
-#include "item.cpp"
 using namespace std;
 
+template <class T>
 class BST
 {
 private:
+    template <class X>
     class Node{
     public:
-        item data;
-        Node *left = nullptr,*right = nullptr,*parent = nullptr;
-        Node(item data):data(data){}
+        T data;
+        Node<T> *left = nullptr,*right = nullptr,*parent = nullptr;
+        Node(X data):data(data){}
     };
-    Node* root = nullptr;
+    Node<T>* root = nullptr;
     int numOfNodes = 0;
-    Node* getMin(Node *temp);
-    Node* getMax(Node *max);
-    void remove(Node* temp);
-    void removeWithTwoChildren(Node * temp);
-    int height(Node* temp) const;
-    void inOrderTraversal(Node* temp) const;
-    void inReversedOrderTraversal(Node* temp) const;
-    void preOrderTraversal(Node* temp) const;
-    void postOrderTraversal(Node* temp) const;
+    Node<T>* getMin(Node<T> *temp);
+    Node<T>* getMax(Node<T> *max);
+    void remove(Node<T>* temp);
+    void removeWithTwoChildren(Node<T> * temp);
+    int height(Node<T>* temp) const;
+    void inOrderTraversal(Node<T>* temp) const;
+    void inReversedOrderTraversal(Node<T>* temp) const;
+    void preOrderTraversal(Node<T>* temp) const;
+    void postOrderTraversal(Node<T>* temp) const;
     
 public:
     BST();
     BST(bool (*cmp)(const T &, const T &));
     ~BST();
-    void insert(item val);
-    void remove(item val);
-    bool find(item val) const;
+    void insert(T val);
+    void remove(T val);
+    bool find(T val) const;
     // void print();
     void clear();
     int size() const;

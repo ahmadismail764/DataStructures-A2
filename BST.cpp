@@ -1,20 +1,24 @@
 #include "BST.hpp"
 using namespace std;
 
-BST::BST(){}
+template <class T>
+BST<T>::BST(){}
 
-BST::BST(bool (*cmp)(const item &, const item &)){
+template <class T>
+BST<T>::BST(bool (*cmp)(const T &, const T &)){
     
 }
 
-BST::~BST(){this->clear();}
+template <class T>
+BST<T>::~BST(){this->clear();}
 
-void BST::insert(item val){
+template <class T>
+void BST<T>::insert(T val){
     ++numOfNodes;
-    Node *nNode = new Node(val);
+    Node<T>*nNode = new Node<T>(val);
     if (root == nullptr)
         return void(root = nNode);
-    Node *temp = root,*prv = nullptr;
+    Node<T>*temp = root,*prv = nullptr;
     while(temp){
         prv = temp;
         if (temp->data == val)
@@ -31,8 +35,9 @@ void BST::insert(item val){
     nNode->parent = prv;
 }
 
-bool BST::find(item val) const{
-    Node *temp = root;
+template <class T>
+bool BST<T>::find(T val) const{
+    Node<T>*temp = root;
     while(temp)
         if (temp->data == val)
             return true;
@@ -43,10 +48,11 @@ bool BST::find(item val) const{
     return false;
 }
 
-void BST::remove(item val){
+template <class T>
+void BST<T>::remove(T val){
     if (root == nullptr)
         return ;
-    Node *temp = root,*prv = nullptr;
+    Node<T>*temp = root,*prv = nullptr;
     --numOfNodes;
     while(temp)
         if (temp->data == val)
@@ -61,7 +67,8 @@ void BST::remove(item val){
     return;
 }
 
-void BST::remove(Node* temp){
+template <class T>
+void BST<T>::remove(Node<T>* temp){
     if (temp->parent->right == temp)
         if (temp->right)
             temp->parent->right = temp->right;
@@ -80,37 +87,42 @@ void BST::remove(Node* temp){
     return;
 }
 
-void BST::removeWithTwoChildren(Node* temp){
-    Node* min = getMin(temp->right);
+template <class T>
+void BST<T>::removeWithTwoChildren(Node<T>* temp){
+    Node<T>* min = getMin(temp->right);
     temp->data = min->data;
     return remove(min);
 }
 
-typename BST::template Node* BST::getMin(Node* temp){
-    Node* start = temp;
+template <class T>
+typename BST<T>::template Node<T>* BST<T>::getMin(Node<T>* temp){
+    Node<T>* start = temp;
     while(start->left)
         start = start->left;
     return start;
 }
 
-typename BST::template Node* BST::getMax(Node* temp){
-    Node* start = temp;
+template <class T>
+typename BST<T>::template Node<T>* BST<T>::getMax(Node<T>* temp){
+    Node<T>* start = temp;
     while(start->right)
         start = start->right;
     return start;
 }
 
-int BST::size() const{
+template <class T>
+int BST<T>::size() const{
     return numOfNodes;
 }
 
-void BST::clear(){
+template <class T>
+void BST<T>::clear(){
     if (root == nullptr)
         return;
-    queue <Node*> q;
+    queue <Node<T>*> q;
     q.emplace(root);
     while(!q.empty()){
-        Node* temp = q.front();
+        Node<T>* temp = q.front();
         q.pop();
         if (temp->right) 
             q.emplace(temp->right);
@@ -123,73 +135,84 @@ void BST::clear(){
     return;
 }
 
-int BST::height(Node* temp) const{
+template <class T>
+int BST<T>::height(Node<T>* temp) const{
     if (temp == nullptr)
         return 0;
     return 1 + max(height(temp->right),height(temp->left));
 }
 
-int BST::height() const {
+template <class T>
+int BST<T>::height() const {
     return height(root);
 }
 
-void BST::inOrderTraversal(Node * temp) const{
+template <class T>
+void BST<T>::inOrderTraversal(Node<T>* temp) const{
     if (temp == nullptr)
         return;
     inOrderTraversal(temp->left);
-    cout << temp->data << ' ';
+    cout << temp->data;
     inOrderTraversal(temp->right);
 }
 
-void BST::inReversedOrderTraversal(Node * temp) const{
+template <class T>
+void BST<T>::inReversedOrderTraversal(Node<T>* temp) const{
     if (temp == nullptr)
         return;
-    inOrderTraversal(temp->right);
-    cout << temp->data << ' ';
-    inOrderTraversal(temp->left);
+    inReversedOrderTraversal(temp->right);
+    cout << temp->data;
+    inReversedOrderTraversal(temp->left);
 }
 
-void BST::preOrderTraversal(Node * temp) const{
+template <class T>
+void BST<T>::preOrderTraversal(Node<T>* temp) const{
     if (temp == nullptr)
         return;
-    cout << temp->data << ' ';
+    cout << temp->data;
     preOrderTraversal(temp->left);
     preOrderTraversal(temp->right);
 }
 
-void BST::postOrderTraversal(Node * temp) const{
+template <class T>
+void BST<T>::postOrderTraversal(Node<T>* temp) const{
     if (temp == nullptr)
         return;
     postOrderTraversal(temp->left);
     postOrderTraversal(temp->right);
-    cout << temp->data << ' ';
+    cout << temp->data;
 }
 
-void BST::inOrderTraversal() const{
+template <class T>
+void BST<T>::inOrderTraversal() const{
     return inOrderTraversal(root);
 }
 
-void BST::inReversedOrderTraversal() const{
+template <class T>
+void BST<T>::inReversedOrderTraversal() const{
     return inReversedOrderTraversal(root);
 }
 
-void BST::preOrderTraversal() const{
+template <class T>
+void BST<T>::preOrderTraversal() const{
     return preOrderTraversal(root);
 }
 
-void BST::postOrderTraversal() const{
+template <class T>
+void BST<T>::postOrderTraversal() const{
     return postOrderTraversal(root);
 }
 
-void BST::breadthFirstTraversal() const{
+template <class T>
+void BST<T>::breadthFirstTraversal() const{
     if (root == nullptr)
         return;
-    queue<Node*>q;
+    queue<Node<T>*>q;
     q.emplace(root);
     while(!q.empty()){
-        Node* temp = q.front();
+        Node<T>* temp = q.front();
         q.pop();
-        cout << temp->data << ' ';
+        cout << temp->data;
         if (temp->left)
             q.emplace(temp->left);
         if (temp->right)
