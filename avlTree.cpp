@@ -1,13 +1,22 @@
 #include "avlTree.hpp"
 
 template <class T>
+AVLTree<T>::AVLTree(T value)
+{
+    root = nullptr;
+    root->left = root->right = nullptr;
+    root->key = value;
+    root->height = 0;
+}
+
+template <class T>
 int AVLTree<T>::height(Node *N)
 {
     return ((N == nullptr) ? 0 : N->height);
 }
 
 template <class T>
-AVLTree<T>::Node *AVLTree<T>::rightRotate(Node *y)
+typename AVLTree<T>::Node *AVLTree<T>::rightRotate(Node *y)
 {
     Node *x = y->left, *T2 = x->right;
     x->right = y;
@@ -24,7 +33,7 @@ int AVLTree<T>::getBalanceFactor(Node *N)
 }
 
 template <class T>
-AVLTree<T>::Node *AVLTree<T>::leftRotate(Node *x)
+typename AVLTree<T>::Node *AVLTree<T>::leftRotate(Node *x)
 {
     Node *y = x->right;
     Node *T2 = y->left;
@@ -35,11 +44,15 @@ AVLTree<T>::Node *AVLTree<T>::leftRotate(Node *x)
     return y;
 }
 
-template <class T>
-AVLTree<T>::Node *AVLTree<T>::insertNode(Node *node, T key)
+/* template <class T>
+typename AVLTree<T>::Node *AVLTree<T>::insert(T key)
 {
-    if (node == nullptr)
-        return new Node(key);
+    if (!root->key)
+    {
+        AVLTree(key);
+        return;
+    }
+    Node *node;
     if (key < node->key)
         node->left = insertNode(node->left, key);
     else if (key > node->key)
@@ -73,9 +86,9 @@ AVLTree<T>::Node *AVLTree<T>::insertNode(Node *node, T key)
     }
     return node;
 }
-
+ */
 template <class T>
-AVLTree<T>::Node *AVLTree<T>::nodeWithMinimumValue(Node *node)
+typename AVLTree<T>::Node *AVLTree<T>::nodeWithMinimumValue(Node *node)
 {
     Node *current = node;
     while (current->left != nullptr)
@@ -84,7 +97,7 @@ AVLTree<T>::Node *AVLTree<T>::nodeWithMinimumValue(Node *node)
 }
 
 template <class T>
-AVLTree<T>::Node *AVLTree<T>::deleteNode(Node *root, T key)
+typename AVLTree<T>::Node *AVLTree<T>::deleteNode(T key)
 {
     if (root == nullptr)
         return root;
@@ -144,23 +157,60 @@ AVLTree<T>::Node *AVLTree<T>::deleteNode(Node *root, T key)
 }
 
 template <class T>
-void AVLTree<T>::printTree(Node *root, string indent, bool last)
+void AVLTree<T>::postOrder() const
 {
-    if (root != nullptr)
+    Node *current = root;
+    while (current != nullptr)
     {
-        cout << indent;
-        if (last)
-        {
-            cout << "R----";
-            indent += "   ";
-        }
-        else
-        {
-            cout << "L----";
-            indent += "|  ";
-        }
-        cout << root->key << endl;
-        printTree(root->left, indent, false);
-        printTree(root->right, indent, true);
+        postOrder(current->left);
+        postOrder(current->right);
+        cout << current->key << ' ';
+    }
+}
+
+template <class T>
+void AVLTree<T>::preOrder() const
+{
+    Node *current = root;
+    if (current != nullptr)
+    {
+        cout << current->key << " ";
+        preorderTraversal(current->left);
+        preorderTraversal(current->right);
+    }
+}
+
+template <class T>
+void AVLTree<T>::inOrder() const
+{
+    Node *current = root;
+    if (current != nullptr)
+    {
+        inorderTraversal(current->left);
+        cout << current->key << " ";
+        inorderTraversal(current->right);
+    }
+}
+
+template <class T>
+void AVLTree<T>::breadthFirst() const
+{
+    if (root == nullptr)
+        return;
+
+    queue<Node *> q;
+    q.push(root);
+
+    while (!q.empty())
+    {
+        Node *current = q.front();
+        q.pop();
+
+        cout << current->key << " ";
+
+        if (current->left != nullptr)
+            q.push(current->left);
+        if (current->right != nullptr)
+            q.push(current->right);
     }
 }
