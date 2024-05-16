@@ -5,11 +5,6 @@ template <class T>
 BST<T>::BST() {}
 
 template <class T>
-BST<T>::BST(bool (*cmp)(const T &, const T &))
-{
-}
-
-template <class T>
 BST<T>::~BST() { this->clear(); }
 
 template <class T>
@@ -45,12 +40,27 @@ bool BST<T>::find(T val) const
     {
         if (temp->data == val)
             return true;
-        else if (val > temp->data)
+        else if (temp->data < val)
             temp = temp->right;
         else
             temp = temp->left;
     }
     return false;
+}
+
+template <class T>
+T BST<T>::get(T val)
+{
+    Node<T> *temp = root;
+    while (temp)
+    {
+        if (temp->data == val)
+            return temp->data;
+        else if (temp->data < val)
+            temp = temp->right;
+        else
+            temp = temp->left;
+    }
 }
 
 template <class T>

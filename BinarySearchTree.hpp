@@ -9,10 +9,11 @@ class BinarySearchTree
 public:
     BinarySearchTree();
     ~BinarySearchTree();
-    void insert(item &item);
-    void remove(item &item);
+    void insert(item Item);
+    void remove(item Item);
     void displayBySmallerName();
     void displayByGreaterName();
     void displayBySmallerPrice();
     void displayByGreaterPrice();
+    void displayItem(string name);
 };

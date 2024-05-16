@@ -4,10 +4,11 @@ using namespace std;
 int main()
 {
     BinarySearchTree bst;
-    item Item("Apple", "fruit", 4), Item2("Banana", "fruit", 10), Item3("Orange", "fruit", 7);
-    bst.insert(Item);
-    bst.insert(Item2);
-    bst.insert(Item3);
+    bst.insert(item("Apple", "fruit", 4));
+    bst.insert(item("Banana", "fruit", 10));
+    bst.insert(item("Orange", "fruit", 7));
+    bst.insert(item("Soap", "clean", 3.5));
+    bst.insert(item("Ball", "sport", 20));
     bst.displayBySmallerName();
     cout << '\n';
     bst.displayByGreaterName();
@@ -16,4 +17,7 @@ int main()
     cout << '\n';
     bst.displayByGreaterPrice();
     cout << '\n';
+    bst.displayItem("Ball");
+    cout << '\n';
+    bst.displayItem("anything");
 }

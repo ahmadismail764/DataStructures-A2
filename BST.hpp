@@ -26,12 +26,11 @@ class BST
 
 public:
     BST();
-    BST(bool (*cmp)(const T &, const T &));
     ~BST();
     void insert(T val);
     void remove(T val);
     bool find(T val) const;
-    // void print();
+    T get(T val);
     void clear();
     int size() const;
     int height() const;
