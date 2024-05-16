@@ -1,216 +1,136 @@
 #include "avlTree.hpp"
 
 template <class T>
-AVLTree<T>::AVLTree(T value)
+Node<T> *AVL<T>::nodeWithMimumValue() const
 {
-    root = nullptr;
-    root->left = root->right = nullptr;
-    root->key = value;
-    root->height = 0;
-}
-
-template <class T>
-int AVLTree<T>::height(Node *N)
-{
-    return ((N == nullptr) ? 0 : N->height);
-}
-
-template <class T>
-typename AVLTree<T>::Node *AVLTree<T>::rightRotate(Node *y)
-{
-    Node *x = y->left, *T2 = x->right;
-    x->right = y;
-    y->left = T2;
-    y->height = max(height(y->left), height(y->right)) + 1;
-    x->height = max(height(x->left), height(x->right)) + 1;
-    return x;
-}
-
-template <class T>
-int AVLTree<T>::getBalanceFactor(Node *N)
-{
-    return ((N == nullptr) ? height(N->left) - height(N->right));
-}
-
-template <class T>
-typename AVLTree<T>::Node *AVLTree<T>::leftRotate(Node *x)
-{
-    Node *y = x->right;
-    Node *T2 = y->left;
-    y->left = x;
-    x->right = T2;
-    x->height = max(height(x->left), height(x->right)) + 1;
-    y->height = max(height(y->left), height(y->right)) + 1;
-    return y;
-}
-
-/* template <class T>
-typename AVLTree<T>::Node *AVLTree<T>::insert(T key)
-{
-    if (!root->key)
-    {
-        AVLTree(key);
-        return;
-    }
-    Node *node;
-    if (key < node->key)
-        node->left = insertNode(node->left, key);
-    else if (key > node->key)
-        node->right = insertNode(node->right, key);
-    else
-        return node;
-
-    node->height = 1 + max(height(node->left), height(node->right));
-
-    int balanceFactor = getBalanceFactor(node);
-
-    if (balanceFactor > 1)
-    {
-        if (key < node->left->key)
-            return rightRotate(node);
-        else if (key > node->left->key)
-        {
-            node->left = leftRotate(node->left);
-            return rightRotate(node);
-        }
-    }
-    if (balanceFactor < -1)
-    {
-        if (key > node->right->key)
-            return leftRotate(node);
-        else if (key < node->right->key)
-        {
-            node->right = rightRotate(node->right);
-            return leftRotate(node);
-        }
-    }
-    return node;
-}
- */
-template <class T>
-typename AVLTree<T>::Node *AVLTree<T>::nodeWithMinimumValue(Node *node)
-{
-    Node *current = node;
-    while (current->left != nullptr)
-        current = current->left;
+    Node<T> *current = root;
+    while (current->getRight() != NULL)
+        current = current->getRight();
     return current;
 }
 
 template <class T>
-typename AVLTree<T>::Node *AVLTree<T>::deleteNode(T key)
+void AVL<T>::breadthFirst() const
 {
-    if (root == nullptr)
-        return root;
-    if (key < root->key)
-        root->left = deleteNode(root->left, key);
-    else if (key > root->key)
-        root->right = deleteNode(root->right, key);
+    queue<Node<T> *> queue;
+    Node<T> *p = root;
+    if (p != 0)
+    {
+        queue.push(p);
+        while (!queue.empty())
+        {
+            p = queue.front();
+            queue.pop();
+            visit(p);
+            if (p->getLeft() != nullptr)
+                queue.push(p->getLeft());
+            if (p->getRight() != nullptr)
+                queue.push(p->getRight());
+        }
+    }
+}
+
+template <class T>
+void AVL<T>::inorder(Node<T> *p) const
+{
+    if (p)
+    {
+        inorder(p->getLeft());
+        visit(p);
+        inorder(p->getRight());
+    }
+}
+
+template <class T>
+void AVL<T>::preorder(Node<T> *p) const
+{
+    if (p)
+    {
+        visit(p);
+        preorder(p->getLeft());
+        preorder(p->getRight());
+    }
+}
+
+template <class T>
+void AVL<T>::postorder(Node<T> *p) const
+{
+    if (p)
+    {
+        postorder(p->getLeft());
+        postorder(p->getRight());
+        visit(p);
+    }
+}
+
+template <class T>
+Node<T> *AVL<T>::rightRotate(Node<T> *y)
+{
+    Node<T> *x = y->getLeft();
+    Node<T> *T2 = x->getRight();
+    x->setRight(y);
+    y->setLeft(T2);
+    y->setHeight(max((y->getLeft() ? y->getLeft()->getHeight() : 0), (y->getRight() ? y->getRight()->getHeight() : 0)) + 1);
+    x->setHeight(max((x->getLeft() ? x->getLeft()->getHeight() : 0), (x->getRight() ? x->getRight()->getHeight() : 0)) + 1);
+    return x;
+}
+
+template <class T>
+Node<T> *AVL<T>::leftRotate(Node<T> *x)
+{
+    Node<T> *y = x->getRight();
+    Node<T> *T2 = y->getLeft();
+    y->setLeft(x);
+    x->setRight(T2);
+    x->setHeight(max((x->getLeft() ? x->getLeft()->getHeight() : 0), (x->getRight() ? x->getRight()->getHeight() : 0)) + 1);
+    y->setHeight(max((y->getLeft() ? y->getLeft()->getHeight() : 0), (y->getRight() ? y->getRight()->getHeight() : 0)) + 1);
+    return y;
+}
+
+template <class T>
+Node<T> *AVL<T>::insertNode(Node<T> *node, T value)
+{
+    // Perform standard BST insertion
+    if (node == nullptr)
+        return new Node<T>(value);
+
+    if (value < node->getKey())
+        node->setLeft(insertNode(node->getLeft(), value));
+    else if (value > node->getKey())
+        node->setRight(insertNode(node->getRight(), value));
     else
+        return node; // Duplicate keys are not allowed
+
+    // Update height of this node
+    node->setHeight(1 + max((node->getLeft() ? node->getLeft()->getHeight() : 0), (node->getRight() ? node->getRight()->getHeight() : 0)));
+
+    // Get the balance factor of this node
+    int balance = node->balanceFactor();
+
+    // If the node becomes unbalanced, there are four cases
+
+    // Left Left Case
+    if (balance > 1 && value < node->getLeft()->getKey())
+        return rightRotate(node);
+
+    // Right Right Case
+    if (balance < -1 && value > node->getRight()->getKey())
+        return leftRotate(node);
+
+    // Left Right Case
+    if (balance > 1 && value > node->getLeft()->getKey())
     {
-        if ((root->left == nullptr) || (root->right == nullptr))
-        {
-            Node *temp = root->left ? root->left : root->right;
-            if (temp == nullptr)
-            {
-                temp = root;
-                root = nullptr;
-            }
-            else
-                *root = *temp;
-            delete temp;
-        }
-        else
-        {
-            Node *temp = nodeWithMinimumValue(root->right);
-            root->key = temp->key;
-            root->right = deleteNode(root->right, temp->key);
-        }
+        node->setLeft(leftRotate(node->getLeft()));
+        return rightRotate(node);
     }
 
-    if (root == nullptr)
-        return root;
-
-    root->height = 1 + max(height(root->left), height(root->right));
-    int balanceFactor = getBalanceFactor(root);
-
-    if (balanceFactor > 1)
+    // Right Left Case
+    if (balance < -1 && value < node->getRight()->getKey())
     {
-        if (getBalanceFactor(root->left) >= 0)
-            return rightRotate(root);
-        else
-        {
-            root->left = leftRotate(root->left);
-            return rightRotate(root);
-        }
+        node->setRight(rightRotate(node->getRight()));
+        return leftRotate(node);
     }
-    if (balanceFactor < -1)
-    {
-        if (getBalanceFactor(root->right) <= 0)
-            return leftRotate(root);
-        else
-        {
-            root->right = rightRotate(root->right);
-            return leftRotate(root);
-        }
-    }
-    return root;
-}
 
-template <class T>
-void AVLTree<T>::postOrder() const
-{
-    Node *current = root;
-    while (current != nullptr)
-    {
-        postOrder(current->left);
-        postOrder(current->right);
-        cout << current->key << ' ';
-    }
-}
-
-template <class T>
-void AVLTree<T>::preOrder() const
-{
-    Node *current = root;
-    if (current != nullptr)
-    {
-        cout << current->key << " ";
-        preorderTraversal(current->left);
-        preorderTraversal(current->right);
-    }
-}
-
-template <class T>
-void AVLTree<T>::inOrder() const
-{
-    Node *current = root;
-    if (current != nullptr)
-    {
-        inorderTraversal(current->left);
-        cout << current->key << " ";
-        inorderTraversal(current->right);
-    }
-}
-
-template <class T>
-void AVLTree<T>::breadthFirst() const
-{
-    if (root == nullptr)
-        return;
-
-    queue<Node *> q;
-    q.push(root);
-
-    while (!q.empty())
-    {
-        Node *current = q.front();
-        q.pop();
-
-        cout << current->key << " ";
-
-        if (current->left != nullptr)
-            q.push(current->left);
-        if (current->right != nullptr)
-            q.push(current->right);
-    }
+    // If the node is already balanced, return it
+    return node;
 }
