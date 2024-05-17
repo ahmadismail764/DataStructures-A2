@@ -4,7 +4,7 @@ template <class T>
 typename AVL<T>::template Node<T>* AVL<T>::nodeWithMinmumValue() const
 {
     Node<T> *current = root;
-    while (current->right() != NULL)
+    while (current->right != NULL)
         current = current->right;
     return current;
 }
