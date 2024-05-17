@@ -1,18 +1,7 @@
 #include "AVLTree.hpp"
 using namespace std;
-
-bool compByName(item &first, item &second)
-{
-    return first.getName() < second.getName();
-}
-
-bool compByPrice(item &first, item &second)
-{
-    return first.getPrice() < second.getPrice();
-}
-
-AVLTree::AVLTree() {}
-AVLTree::~AVLTree() {}
+bool compByName(item &first, item &second) { return first.getName() < second.getName(); }
+bool compByPrice(item &first, item &second) { return first.getPrice() < second.getPrice(); }
 
 void AVLTree::insert(item Item)
 {
@@ -33,22 +22,22 @@ void AVLTree::displayBySmallerName()
     return byName.inorder();
 }
 
-// void AVLTree::displayByGreaterName(){
-//     return byName.inReversedOrderTraversal();
-// }
-
 void AVLTree::displayBySmallerPrice()
 {
     return byPrice.inorder();
 }
 
-// void AVLTree::displayByGreaterPrice(){
-//     return byPrice.inReversedOrderTraversal();
-// }
+/* void AVLTree::displayByGreaterName(){
+    return byName.inReversedOrderTraversal();
+}
 
-// void AVLTree::displayItem(string name){
-//     if (byName.find(item(name,"",0)))
-//         cout << byName.get(item(name,"",0));
-//     else
-//         cout << "NOT FOUND!" << '\n';
-// }
+void AVLTree::displayByGreaterPrice(){
+    return byPrice.inReversedOrderTraversal();
+}
+
+void AVLTree::displayItem(string name){
+    if (byName.find(item(name,"",0)))
+        cout << byName.get(item(name,"",0));
+    else
+        cout << "NOT FOUND!" << '\n';
+} */
