@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "Tree.hpp"
 using namespace std;
 
 template <class T>
@@ -24,7 +25,7 @@ public:
 };
 
 template <class T>
-class AVL
+class AVL : public Tree
 {
     Node<T> *root;
 

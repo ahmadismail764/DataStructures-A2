@@ -1,7 +1,8 @@
 #include <algorithm>
 #include <iostream>
+#include "Tree.hpp"
 template<typename T>
-class Heap{
+class Heap : public Tree{
 private:
     T* name_max_heap, *name_min_heap, *price_max_heap, *price_min_heap;
     unsigned int size;
@@ -12,7 +13,7 @@ public:
     ~Heap();
     void minheapify(int i, std::function<bool()>cmp = [](const T&x, const T&y){return x <= y;});
     void maxheapify(int i, std::function<bool()>cmp = [](const T&x, const T&y){return x <= y;});
-    void add(T item);
+    void insert(T item);
     void print();
     void remove(T item);
     void displayItem(T item);
