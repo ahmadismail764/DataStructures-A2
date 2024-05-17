@@ -3,27 +3,28 @@
 using namespace std;
 
 template <typename T>
-class Heap : public Tree
+class Heap:public Tree
 {
 private:
     vector<T> heap;
     unsigned int size;
     unsigned int capacity;
-    function<bool(T &, T &)> compare;
+    function<bool(T&, T&)> compare;
     bool isMaxHeap = true;
 
 public:
-    Heap(function<bool(T &, T &)> comp, int capacity = 10, bool isMaxHeap = true);
-    Heap(T *arr, int arrSize, function<bool(T &, T &)> comp, bool isMaxHeap = true);
+    Heap(int capacity = 10, bool isMaxHeap = true);
+    Heap(T* arr, int arrSize, bool isMaxHeap = true);
     void heapifyDown(int i, int heap_size, bool isMaxHeap);
     void heapifyUp(int i, bool isMaxHeap);
-    void setComparison(function<bool(T &, T &)> comp);
     void buildMaxHeap();
     void buildMinHeap();
     void insert(T valu);
     T remove();
-    void heapSort(function<bool(T &, T &)> comp, bool descending = false);
+    bool isEmpty();
+    void displayHeap(function<void(T&)> f, bool descending = false);
     void printHeap();
+    void foreach(function<void(T&)> f);
     Heap &operator=(T *arr);
 };
 
