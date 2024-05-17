@@ -70,8 +70,8 @@ Node<T> *AVL<T>::rightRotate(Node<T> *y)
     Node<T> *T2 = x->getRight();
     x->setRight(y);
     y->setLeft(T2);
-    y->setHeight(max((y->getLeft() ? y->getLeft()->getHeight() : 0), (y->getRight() ? y->getRight()->getHeight() : 0)) + 1);
-    x->setHeight(max((x->getLeft() ? x->getLeft()->getHeight() : 0), (x->getRight() ? x->getRight()->getHeight() : 0)) + 1);
+    y->setHeight();
+    x->setHeight();
     return x;
 }
 
@@ -82,55 +82,7 @@ Node<T> *AVL<T>::leftRotate(Node<T> *x)
     Node<T> *T2 = y->getLeft();
     y->setLeft(x);
     x->setRight(T2);
-    x->setHeight(max((x->getLeft() ? x->getLeft()->getHeight() : 0), (x->getRight() ? x->getRight()->getHeight() : 0)) + 1);
-    y->setHeight(max((y->getLeft() ? y->getLeft()->getHeight() : 0), (y->getRight() ? y->getRight()->getHeight() : 0)) + 1);
+    x->setHeight();
+    y->setHeight();
     return y;
-}
-
-template <class T>
-Node<T> *AVL<T>::insertNode(Node<T> *node, T value)
-{
-    // Perform standard BST insertion
-    if (node == nullptr)
-        return new Node<T>(value);
-
-    if (value < node->getKey())
-        node->setLeft(insertNode(node->getLeft(), value));
-    else if (value > node->getKey())
-        node->setRight(insertNode(node->getRight(), value));
-    else
-        return node; // Duplicate keys are not allowed
-
-    // Update height of this node
-    node->setHeight(1 + max((node->getLeft() ? node->getLeft()->getHeight() : 0), (node->getRight() ? node->getRight()->getHeight() : 0)));
-
-    // Get the balance factor of this node
-    int balance = node->balanceFactor();
-
-    // If the node becomes unbalanced, there are four cases
-
-    // Left Left Case
-    if (balance > 1 && value < node->getLeft()->getKey())
-        return rightRotate(node);
-
-    // Right Right Case
-    if (balance < -1 && value > node->getRight()->getKey())
-        return leftRotate(node);
-
-    // Left Right Case
-    if (balance > 1 && value > node->getLeft()->getKey())
-    {
-        node->setLeft(leftRotate(node->getLeft()));
-        return rightRotate(node);
-    }
-
-    // Right Left Case
-    if (balance < -1 && value < node->getRight()->getKey())
-    {
-        node->setRight(rightRotate(node->getRight()));
-        return leftRotate(node);
-    }
-
-    // If the node is already balanced, return it
-    return node;
 }
