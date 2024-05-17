@@ -16,16 +16,8 @@ void AVLTree::remove(item Item)
     byName.remove(Item);
     byPrice.remove(Item);
 }
-
-void AVLTree::displayBySmallerName()
-{
-    return byName.inorder();
-}
-
-void AVLTree::displayBySmallerPrice()
-{
-    return byPrice.inorder();
-}
+void AVLTree::displayBySmallerName() { return byName.inorder(); }
+void AVLTree::displayBySmallerPrice() { return byPrice.inorder(); }
 
 /* void AVLTree::displayByGreaterName(){
     return byName.inReversedOrderTraversal();
