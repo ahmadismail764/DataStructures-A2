@@ -123,7 +123,7 @@ typename BST<T>::template Node<T> *BST<T>::getMin(Node<T> *temp)
 }
 
 template <class T>
-typename BST<T>::template Node<T>* BST<T>::getMax(Node<T> *temp)
+typename BST<T>::template Node<T> *BST<T>::getMax(Node<T> *temp)
 {
     Node<T> *start = temp;
     while (start->right)

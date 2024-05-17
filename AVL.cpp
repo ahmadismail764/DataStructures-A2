@@ -1,7 +1,7 @@
 #include "AVL.hpp"
 
 template <class T>
-typename AVL<T>::template Node<T>* AVL<T>::nodeWithMinmumValue() const
+typename AVL<T>::template Node<T> *AVL<T>::nodeWithMinmumValue() const
 {
     Node<T> *current = root;
     while (current->right != NULL)
@@ -64,7 +64,7 @@ void AVL<T>::postorder(Node<T> *p) const
 }
 
 template <class T>
-typename AVL<T>::template Node<T>* AVL<T>::rightRotate(Node<T> *y)
+typename AVL<T>::template Node<T> *AVL<T>::rightRotate(Node<T> *y)
 {
     Node<T> *x = y->left;
     Node<T> *T2 = x->right;
@@ -76,7 +76,7 @@ typename AVL<T>::template Node<T>* AVL<T>::rightRotate(Node<T> *y)
 }
 
 template <class T>
-typename AVL<T>::template Node<T>* AVL<T>::leftRotate(Node<T> *x)
+typename AVL<T>::template Node<T> *AVL<T>::leftRotate(Node<T> *x)
 {
     Node<T> *y = x->right;
     Node<T> *T2 = y->left;
@@ -88,7 +88,8 @@ typename AVL<T>::template Node<T>* AVL<T>::leftRotate(Node<T> *x)
 }
 
 template <class T>
-void AVL<T>::insert(T value){
+void AVL<T>::insert(T value)
+{
     Node<T> *nNode = new Node<T>(value);
     if (root == nullptr)
         return void(root = nNode);
@@ -114,7 +115,8 @@ void AVL<T>::insert(T value){
 }
 
 template <class T>
-void AVL<T>::remove(T value){
+void AVL<T>::remove(T value)
+{
     if (root == nullptr)
         return;
     Node<T> *temp = root, *prv = nullptr;
@@ -123,12 +125,12 @@ void AVL<T>::remove(T value){
         if (temp->key == value)
             if (temp->left && temp->right)
                 // return removeWithTwoChildren(temp);
+                else
+                    // return remove(temp);
+                    else if (value < temp->key)
+                        temp = temp->left;
             else
-                // return remove(temp);
-        else if (value < temp->key)
-            temp = temp->left;
-        else
-            temp = temp->right;
+                temp = temp->right;
     }
     this->update();
     this->balance();

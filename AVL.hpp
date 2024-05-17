@@ -10,17 +10,18 @@ private:
     class Node
     {
         T key;
-        int height,BF; //balance factor
+        int height, BF; // balance factor
         Node *left, *right, *parent;
+
     public:
-        Node(X value = 0) : key(value), height(0), left(nullptr),right(nullptr) {}
+        Node(X value = 0) : key(value), height(0), left(nullptr), right(nullptr) {}
         int balanceFactor() const { return (left ? left->getHeight() : 0) - (right ? right->getHeight() : 0); }
     };
     Node<T> *root;
 
     // private methods, only developer will use
     void balance(); // checks the bf of all nodes and rotates the tree
-    void update(); // updates the height and bf of all nodes after each insertion and deletion
+    void update();  // updates the height and bf of all nodes after each insertion and deletion
     Node<T> *rightRotate(Node<T> *y);
     Node<T> *leftRotate(Node<T> *y);
     // Node<T> *insertNode(Node<T> *node, T value);
