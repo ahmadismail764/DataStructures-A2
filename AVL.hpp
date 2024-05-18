@@ -23,13 +23,13 @@ class AVL
     Node<T> *rightRotate(Node<T> *curr);
     Node<T> *leftRotate(Node<T> *curr);
     Node<T> *insert(Node<T> *curr, T value);
-    Node<T> *remove(Node<T> *curr, T value);
+    void remove(Node<T> *curr, T value);
     void remove(Node<T> *curr);
     void removeWithTwoChildren(Node<T> *curr);
 
 public:
     AVL() { root = new Node<T>(); }
-    Node<T> *nodeWithMinValue() const;
+    // Node<T> *nodeWithMinValue() const;
     void visit(Node<T> *node) const { cout << node->key << " " << node->height << '\n'; }
     void breadthFirst() const;
     void inorder(Node<T> *p = nullptr) const;

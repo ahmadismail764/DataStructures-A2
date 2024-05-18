@@ -130,21 +130,22 @@ void AVL<T>::remove(T value)
 {
     if (root == nullptr)
         return;
-    Node<T> *temp = root, *prv = nullptr;
-    while (temp)
-    {
-        if (temp->key == value)
-            if (temp->left && temp->right)
-                // return removeWithTwoChildren(temp);
-                else
-                    // return remove(temp);
-                    else if (value < temp->key)
-                        temp = temp->left;
-            else
-                temp = temp->right;
-    }
-    this->update(root);
-    this->balance();
+    return remove(root,value);
+    // Node<T> *temp = root, *prv = nullptr;
+    // while (temp)
+    // {
+    //     if (temp->key == value)
+    //         if (temp->left && temp->right)
+    //             // return removeWithTwoChildren(temp);
+    //             else
+    //                 // return remove(temp);
+    //                 else if (value < temp->key)
+    //                     temp = temp->left;
+    //         else
+    //             temp = temp->right;
+    // }
+    // this->update(root);
+    // this->balance();
     return;
 }
 
@@ -206,4 +207,21 @@ void AVL<T>::remove(Node<T> *temp)
         temp->parent->left = nullptr;
     delete temp;
     return;
+}
+
+template <class T>
+void AVL<T>::remove(Node<T> *curr, T value){
+    if (curr == nullptr)
+        return;
+    if (curr->key == value)
+        if (curr->left && curr->right)
+            return removeWithTwoChildren(curr);
+        else
+            return remove(curr);
+    if (value < curr->key)
+        remove(curr->left,value);
+    else 
+        remove(curr->right,value);
+    update(curr);
+    curr = balance(curr);
 }
