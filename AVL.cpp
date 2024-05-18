@@ -55,36 +55,6 @@ void AVL<T>::postorder(Node<T> *p) const
 }
 
 template <class T>
-typename AVL<T>::template Node<T> *AVL<T>::rightRotate(Node<T> *curr)
-{
-    Node<T> *newRoot = curr->left;
-    Node<T> *T2 = newRoot->right;
-    newRoot->left = curr;
-    newRoot->parent = curr->parent;
-    curr->parent = newRoot;
-    curr->left = T2;
-    T2->parent = curr;
-    update(curr);
-    update(newRoot);
-    return newRoot;
-}
-
-template <class T>
-typename AVL<T>::template Node<T> *AVL<T>::leftRotate(Node<T> *curr)
-{
-    Node<T> *newRoot = curr->right;
-    Node<T> *T2 = newRoot->left;
-    newRoot->left = curr;
-    newRoot->parent = curr->parent;
-    curr->parent = newRoot;
-    curr->right = T2;
-    T2->parent = curr;
-    update(curr);
-    update(newRoot);
-    return newRoot;
-}
-
-template <class T>
 void AVL<T>::insert(T value) { root = insert(root, value); }
 
 template <class T>
@@ -99,9 +69,24 @@ typename AVL<T>::template Node<T> *AVL<T>::insert(Node<T> *curr, T value)
     else
         curr->right = insert(curr->right, value);
     update(curr);
-    // balance(curr);
+    balance(curr);
     return curr;
 }
+
+template <class T>
+typename AVL<T>::template Node<T> *AVL<T>::getParent(Node<T> *curr){
+    if (curr == root || root == nullptr)
+        return nullptr;
+    Node<T>* temp = root;
+    while(temp)
+        if (temp->left == curr || temp->right == curr)
+            return temp;
+        else if (curr->key < temp->key)
+            temp = temp->left;
+        else
+            temp = temp->right;
+}
+
 
 template <class T>
 void AVL<T>::update(Node<T> *temp)
@@ -121,16 +106,58 @@ void AVL<T>::update(Node<T> *temp)
 }
 
 template <class T>
+void AVL<T>::leftRotate(Node<T> *curr)
+{
+    Node<T> *newRoot = curr->right;
+    Node<T> *T2 = newRoot->left;
+    newRoot->left = curr;
+    // newRoot->parent = curr->parent;
+    // curr->parent = newRoot;
+    curr->right = T2;
+    // T2->parent = curr;
+    update(curr);
+    update(newRoot);
+    // return newRoot;
+}
+
+template <class T>
+void AVL<T>::rightRotate(Node<T> *curr)
+{
+    
+    Node<T> *newRoot = curr->left;
+    Node<T> *T2 = newRoot->right, *parent = getParent(curr);
+    if (parent == nullptr)
+        root = newRoot;
+    else if (parent->right == curr)
+        parent->right = newRoot;
+    else
+        parent->left = newRoot;
+    newRoot->right = curr;
+    curr->left = T2;
+    cout << "in right rotation " << curr->key << ' '
+    // << curr->left->key << ' ' 
+    << newRoot->key <<' '
+    << newRoot->right->key<< ' '
+    << root->key <<  '\n';
+    update(curr);
+    update(newRoot);
+    // return newRoot;
+}
+
+template <class T>
 void AVL<T>::balance(Node<T> *curr)
 {
     if (curr->BF < -1)
     {
+        cout << "in first balance " << curr->key << '\n';
         if (curr->left->BF > 0)
             leftRotate(curr->left);
         rightRotate(curr);
     }
     else if (curr->BF > 1)
     {
+        cout << "in second balance " << curr->key << '\n';
+
         if (curr->right->BF < 0)
             rightRotate(curr->right);
         leftRotate(curr);
@@ -158,23 +185,24 @@ void AVL<T>::removeWithTwoChildren(Node<T> *temp)
 template <class T>
 void AVL<T>::remove(Node<T> *temp)
 {
-    if (temp->parent && temp->parent->right == temp)
+    Node<T>* parent = getParent(temp);
+    if (parent && parent->right == temp)
     {
         if (temp->right)
-            temp->parent->right = temp->right;
+            parent->right = temp->right;
         else if (temp->left)
-            temp->parent->right = temp->left;
+            parent->right = temp->left;
         else
-            temp->parent->right = nullptr;
+            parent->right = nullptr;
     }
-    else if (temp->parent)
+    else if (parent)
     {
         if (temp->left)
-            temp->parent->left = temp->left;
+            parent->left = temp->left;
         else if (temp->right)
-            temp->parent->left = temp->right;
+            parent->left = temp->right;
         else
-            temp->parent->left = nullptr;
+            parent->left = nullptr;
     }
     delete temp;
     cout << "Finally deleted it!\n";
@@ -182,8 +210,7 @@ void AVL<T>::remove(Node<T> *temp)
 }
 
 template <class T>
-void AVL<T>::remove(Node<T> *curr, T value)
-{
+void AVL<T>::remove(Node<T> *curr, T value){
     cout << "Delete!1\n";
     if (curr == nullptr)
         return;
