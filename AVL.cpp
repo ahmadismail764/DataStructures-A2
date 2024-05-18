@@ -128,7 +128,6 @@ typename AVL<T>::template Node<T> *AVL<T>::balance(Node<T> *curr)
         leftRotate(curr);
     }
     return curr;
-    b
 }
 
 template <class T>
