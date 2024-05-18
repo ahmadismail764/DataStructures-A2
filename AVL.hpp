@@ -29,6 +29,7 @@ class AVL
     Node<T> *nodeWithMinValue() const;
     void visit(Node<T> *node) const { cout << node->key << " " << node->height << '\n'; }
 
+public:
     void breadthFirst() const;
     void inorder(Node<T> *p = nullptr) const;
     void preorder(Node<T> *p = nullptr) const;
