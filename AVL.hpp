@@ -10,22 +10,23 @@ private:
     class Node
     {
         T key;
-        int height, BF; // balance factor
+        int height, BF; // balance factor (right - left)
         Node *left, *right, *parent;
 
     public:
         Node(X value = 0) : key(value), height(0), left(nullptr), right(nullptr) {}
-        int balanceFactor() const { return (left ? left->getHeight() : 0) - (right ? right->getHeight() : 0); }
     };
     Node<T> *root;
 
     // private methods, only developer will use
-    void balance(); // checks the bf of all nodes and rotates the tree
-    void update();  // updates the height and bf of all nodes after each insertion and deletion
-    Node<T> *rightRotate(Node<T> *y);
-    Node<T> *leftRotate(Node<T> *y);
-    // Node<T> *insertNode(Node<T> *node, T value);
-    // Node<T> *deleteNode(Node<T> *root, T value);
+    Node<T>* balance(Node<T>* temp); // checks the bf of all nodes and rotates the tree
+    void update(Node<T>* temp);  // updates the height and bf of all nodes after each insertion and deletion
+    Node<T>* rightRotate(Node<T> *curr);
+    Node<T>* leftRotate(Node<T> *curr);
+    Node<T>* insert(Node<T> *curr,T value);
+    Node<T>* remove(Node<T> *curr,T value);
+    void remove(Node<T>* curr);
+    void removeWithTwoChildren(Node<T>* curr):
 public:
     AVL() { root = new Node<T>(); }
     Node<T> *nodeWithMinmumValue() const;
