@@ -88,7 +88,6 @@ template <class T>
 void AVL<T>::insert(T value)
 {
     root = insert(root, value);
-    cout << "Inserted successfully!\n";
 }
 
 template <class T>

@@ -8,22 +8,23 @@ int main()
     cout << "Insertion Test Cases:\n";
     tree.insert(10);
     tree.insert(5);
-    // tree.insert(15);
-    // tree.insert(3);
-    // tree.insert(7);
-    // tree.insert(12);
-    // tree.insert(17);
-    // cout << "Inorder traversal after insertion:\n";
-    // tree.inorder();
-    // cout << endl;
+    tree.insert(15);
+    tree.insert(3);
+    tree.insert(7);
+    tree.insert(12);
+    tree.insert(17);
+    cout << "Inorder traversal after insertion:\n";
+    tree.inorder(tree.getRoot());
+    cout << '\n';
 
-    // // Deletion Test Cases
-    // cout << "Deletion Test Cases:\n";
-    // tree.remove(3);  // Deleting leaf node
+    // Deletion Test Cases
+    cout << "Deletion Test Cases:\n";
+    tree.remove(3);
+    tree.inorder(tree.getRoot());
     // tree.remove(7);  // Deleting node with one child
     // tree.remove(15); // Deleting node with two children
     // cout << "Inorder traversal after deletion:\n";
-    // tree.inorder();
+    // tree.inorder(tree.getRoot());
     // cout << endl;
 
     // // Balancing Test Cases

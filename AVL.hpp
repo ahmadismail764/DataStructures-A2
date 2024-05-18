@@ -27,9 +27,10 @@ class AVL
     void removeWithTwoChildren(Node<T> *curr);
 
 public:
-    AVL() { root = new Node<T>(); }
+    AVL() { root = nullptr; }
+    Node<T> *getRoot() const { return root; }
     // Node<T> *nodeWithMinValue() const;
-    void visit(Node<T> *node) const { cout << node->key << " " << node->height << '\n'; }
+    void visit(Node<T> *node) const { cout << node->key << " "; }
     void breadthFirst() const;
     void inorder(Node<T> *p = nullptr) const;
     void preorder(Node<T> *p = nullptr) const;
