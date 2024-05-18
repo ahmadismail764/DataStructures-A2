@@ -61,6 +61,7 @@ T BST<T>::get(T val)
         else
             temp = temp->left;
     }
+    return temp->data;
 }
 
 template <class T>

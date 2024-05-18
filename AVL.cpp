@@ -85,7 +85,11 @@ typename AVL<T>::template Node<T> *AVL<T>::leftRotate(Node<T> *curr)
 }
 
 template <class T>
-void AVL<T>::insert(T value) { root = insert(root, value); }
+void AVL<T>::insert(T value)
+{
+    root = insert(root, value);
+    cout << "Inserted successfully!\n";
+}
 
 template <class T>
 typename AVL<T>::template Node<T> *AVL<T>::insert(Node<T> *curr, T value)
@@ -144,7 +148,7 @@ void AVL<T>::removeWithTwoChildren(Node<T> *temp)
     Node<T> *min = temp->right;
     while (min->left)
         min = min->left;
-    temp->data = min->data;
+    temp->key = min->key;
     return remove(min);
 }
 

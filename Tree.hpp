@@ -2,5 +2,5 @@
 class Tree
 {
 public:
-    virtual void insert(item Item);
+    virtual void insert(item Item) = 0;
 };

@@ -8,11 +8,10 @@ class AVL
     template <class X> // make the node a template class
     class Node
     {
+    public:
         T key;
         int height, BF; // balance factor (right - left)
         Node *left, *right, *parent;
-
-    public:
         Node(X value = 0) : key(value), height(0), left(nullptr), right(nullptr) {}
     };
     Node<T> *root;
