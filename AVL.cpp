@@ -126,30 +126,6 @@ typename AVL<T>::template Node<T> *AVL<T>::insert(Node<T> *curr, T value)
 }
 
 template <class T>
-void AVL<T>::remove(T value)
-{
-    if (root == nullptr)
-        return;
-    return remove(root, value);
-    // Node<T> *temp = root, *prv = nullptr;
-    // while (temp)
-    // {
-    //     if (temp->key == value)
-    //         if (temp->left && temp->right)
-    //             // return removeWithTwoChildren(temp);
-    //             else
-    //                 // return remove(temp);
-    //                 else if (value < temp->key)
-    //                     temp = temp->left;
-    //         else
-    //             temp = temp->right;
-    // }
-    // this->update(root);
-    // this->balance();
-    return;
-}
-
-template <class T>
 void AVL<T>::update(Node<T> *temp)
 {
     int lh = -1, rh = -1;
@@ -178,6 +154,14 @@ typename AVL<T>::template Node<T> *AVL<T>::balance(Node<T> *curr)
     }
     return curr;
     b
+}
+
+template <class T>
+void AVL<T>::remove(T value)
+{
+    if (root == nullptr)
+        return;
+    return remove(root, value);
 }
 
 template <class T>
