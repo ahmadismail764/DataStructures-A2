@@ -154,7 +154,7 @@ void AVL<T>::removeWithTwoChildren(Node<T> *temp)
 template <class T>
 void AVL<T>::remove(Node<T> *temp)
 {
-    if (temp->parent->right == temp)
+    if (temp->parent && temp->parent->right == temp)
     {
         if (temp->right)
             temp->parent->right = temp->right;
@@ -163,7 +163,7 @@ void AVL<T>::remove(Node<T> *temp)
         else
             temp->parent->right = nullptr;
     }
-    else
+    else if (temp->parent)
     {
         if (temp->left)
             temp->parent->left = temp->left;
