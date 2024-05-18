@@ -18,9 +18,9 @@ int main()
     cout << '\n';
 
     cout << "Deletion Test Cases:\n";
+    tree.remove(7);
     tree.remove(3);
-    // tree.remove(7);
-    // tree.remove(15);
+    tree.remove(15);
     cout << "Inorder traversal after deletion:\n";
     tree.inorder(tree.getRoot());
     cout << '\n';
