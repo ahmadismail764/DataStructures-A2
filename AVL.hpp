@@ -30,7 +30,7 @@ public:
     AVL() { root = nullptr; }
     Node<T> *getRoot() const { return root; }
     // Node<T> *nodeWithMinValue() const;
-    void visit(Node<T> *node) const { cout << node->key << " " << node->BF << '\n'; }
+    void visit(Node<T> *node) const { cout << node->key << " " << node->height << ' ' << node->BF << '\n'; }
     void breadthFirst() const;
     void inorder(Node<T> *p = nullptr) const;
     void preorder(Node<T> *p = nullptr) const;
