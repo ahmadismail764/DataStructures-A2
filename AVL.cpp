@@ -221,14 +221,8 @@ void AVL<T>::remove(Node<T> *curr, T value)
     if (curr == nullptr)
         return;
     if (curr->key == value)
-        if (curr->left && curr->right)
-            return removeWithTwoChildren(curr);
-        else
-            return remove(curr);
-    if (value < curr->key)
-        remove(curr->left, value);
-    else
-        remove(curr->right, value);
+        return (curr->left && curr->right) ? removeWithTwoChildren(curr) : remove(curr);
+    (value < curr->key) ? remove(curr->left, value) : remove(curr->right, value);
     update(curr);
     curr = balance(curr);
 }
