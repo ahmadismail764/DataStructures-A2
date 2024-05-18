@@ -85,16 +85,16 @@ typename AVL<T>::template Node<T> *AVL<T>::leftRotate(Node<T> *curr)
 }
 
 template <class T>
-void AVL<T>::insert(T value)
-{
-    root = insert(root, value);
-}
+void AVL<T>::insert(T value) { root = insert(root, value); }
 
 template <class T>
 typename AVL<T>::template Node<T> *AVL<T>::insert(Node<T> *curr, T value)
 {
     if (curr == nullptr)
-        return new Node<T>(value);
+    {
+        root = new Node<T>(value);
+        return root;
+    }
     if (value < curr->key)
         curr->left = insert(curr->left, value);
     else
@@ -173,17 +173,34 @@ void AVL<T>::remove(Node<T> *temp)
             temp->parent->left = nullptr;
     }
     delete temp;
+    cout << "Finally deleted it!\n";
     return;
 }
 
 template <class T>
 void AVL<T>::remove(Node<T> *curr, T value)
 {
+    cout << "Delete!1\n";
     if (curr == nullptr)
         return;
     if (curr->key == value)
-        return (curr->left && curr->right) ? removeWithTwoChildren(curr) : remove(curr);
-    (value < curr->key) ? remove(curr->left, value) : remove(curr->right, value);
+    {
+        if (curr->left && curr->right)
+        {
+            cout << "Delete!2\n";
+            removeWithTwoChildren(curr);
+        }
+        else
+        {
+            cout << "Delete!3\n";
+            remove(curr);
+        }
+    }
+    if (value < curr->key)
+        remove(curr->left, value);
+    else
+        remove(curr->right, value);
     update(curr);
-    curr = balance(curr);
+    balance(curr);
+    cout << "Deletion Success!\n";
 }
