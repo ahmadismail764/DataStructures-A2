@@ -17,9 +17,9 @@ int main()
     tree.inorder(tree.getRoot());
     cout << '\n';
 
-    cout << "Deletion Test Cases:\n";
-    tree.remove(3);
-    tree.inorder(tree.getRoot());
+    // cout << "Deletion Test Cases:\n";
+    // tree.remove(3);
+    // tree.inorder(tree.getRoot());
     // tree.remove(7);  // Deleting node with one child
     // tree.remove(15); // Deleting node with two children
     // cout << "Inorder traversal after deletion:\n";
