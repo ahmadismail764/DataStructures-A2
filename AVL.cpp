@@ -67,9 +67,7 @@ template <class T>
 typename AVL<T>::template Node<T> *AVL<T>::insert(Node<T> *curr, T value)
 {
     if (curr == nullptr)
-    {
         return new Node<T>(value);
-    }
     if (value < curr->key)
         curr->left = insert(curr->left, value);
     else
@@ -92,6 +90,7 @@ typename AVL<T>::template Node<T> *AVL<T>::getParent(Node<T> *curr)
             temp = temp->left;
         else
             temp = temp->right;
+    return nullptr;
 }
 
 template <class T>
