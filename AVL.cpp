@@ -130,7 +130,7 @@ void AVL<T>::remove(T value)
 {
     if (root == nullptr)
         return;
-    return remove(root,value);
+    return remove(root, value);
     // Node<T> *temp = root, *prv = nullptr;
     // while (temp)
     // {
@@ -177,6 +177,7 @@ typename AVL<T>::template Node<T> *AVL<T>::balance(Node<T> *curr)
         leftRotate(curr);
     }
     return curr;
+    b
 }
 
 template <class T>
@@ -193,24 +194,30 @@ template <class T>
 void AVL<T>::remove(Node<T> *temp)
 {
     if (temp->parent->right == temp)
+    {
         if (temp->right)
             temp->parent->right = temp->right;
         else if (temp->left)
             temp->parent->right = temp->left;
         else
             temp->parent->right = nullptr;
-    else if (temp->left)
-        temp->parent->left = temp->left;
-    else if (temp->right)
-        temp->parent->left = temp->right;
+    }
     else
-        temp->parent->left = nullptr;
+    {
+        if (temp->left)
+            temp->parent->left = temp->left;
+        else if (temp->right)
+            temp->parent->left = temp->right;
+        else
+            temp->parent->left = nullptr;
+    }
     delete temp;
     return;
 }
 
 template <class T>
-void AVL<T>::remove(Node<T> *curr, T value){
+void AVL<T>::remove(Node<T> *curr, T value)
+{
     if (curr == nullptr)
         return;
     if (curr->key == value)
@@ -219,9 +226,9 @@ void AVL<T>::remove(Node<T> *curr, T value){
         else
             return remove(curr);
     if (value < curr->key)
-        remove(curr->left,value);
-    else 
-        remove(curr->right,value);
+        remove(curr->left, value);
+    else
+        remove(curr->right, value);
     update(curr);
     curr = balance(curr);
 }
