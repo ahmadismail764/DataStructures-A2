@@ -55,7 +55,12 @@ void AVL<T>::postorder(Node<T> *p) const
 }
 
 template <class T>
-void AVL<T>::insert(T value) { root = insert(root, value); }
+void AVL<T>::insert(T value) { 
+    if (root == nullptr)
+        root = new Node<T>(value);
+    else 
+        insert(root,value);
+}
 
 template <class T>
 typename AVL<T>::template Node<T> *AVL<T>::insert(Node<T> *curr, T value)
@@ -69,8 +74,8 @@ typename AVL<T>::template Node<T> *AVL<T>::insert(Node<T> *curr, T value)
     else
         curr->right = insert(curr->right, value);
     update(curr);
-    balance(curr);
-    return curr;
+    return balance(curr);
+    // return curr;
 }
 
 template <class T>
@@ -108,16 +113,18 @@ void AVL<T>::update(Node<T> *temp)
 template <class T>
 void AVL<T>::leftRotate(Node<T> *curr)
 {
-    Node<T> *newRoot = curr->right;
+    Node<T> *newRoot = curr->right, *parent = getParent(curr);
     Node<T> *T2 = newRoot->left;
+    if (parent == nullptr)
+        root = newRoot;
+    else if (parent->right == curr)
+        parent->right = newRoot;
+    else
+        parent->left = newRoot;
     newRoot->left = curr;
-    // newRoot->parent = curr->parent;
-    // curr->parent = newRoot;
     curr->right = T2;
-    // T2->parent = curr;
     update(curr);
     update(newRoot);
-    // return newRoot;
 }
 
 template <class T>
@@ -134,34 +141,37 @@ void AVL<T>::rightRotate(Node<T> *curr)
         parent->left = newRoot;
     newRoot->right = curr;
     curr->left = T2;
-    cout << "in right rotation " << curr->key << ' '
+    // cout << "in right rotation " << curr->key << ' '
     // << curr->left->key << ' ' 
-    << newRoot->key <<' '
-    << newRoot->right->key<< ' '
-    << root->key <<  '\n';
+    // << newRoot->key <<' '
+    // << newRoot->right->key<< ' '
+    // << root->key << ' '
+    // << root->right->key << ' '
+    // << root->left->key << '\n';
     update(curr);
     update(newRoot);
     // return newRoot;
 }
 
 template <class T>
-void AVL<T>::balance(Node<T> *curr)
+typename AVL<T>::template Node<T>* AVL<T>::balance(Node<T> *curr)
 {
     if (curr->BF < -1)
     {
-        cout << "in first balance " << curr->key << '\n';
+        // cout << "in first balance " << curr->key << '\n';
         if (curr->left->BF > 0)
             leftRotate(curr->left);
         rightRotate(curr);
     }
     else if (curr->BF > 1)
     {
-        cout << "in second balance " << curr->key << '\n';
+        // cout << "in second balance " << curr->key << '\n';
 
         if (curr->right->BF < 0)
             rightRotate(curr->right);
         leftRotate(curr);
     }
+    return curr;
 }
 
 template <class T>
@@ -232,6 +242,6 @@ void AVL<T>::remove(Node<T> *curr, T value){
     else
         remove(curr->right, value);
     update(curr);
-    balance(curr);
+    curr = balance(curr);
     cout << "Deletion Success!\n";
 }
