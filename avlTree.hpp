@@ -8,13 +8,13 @@ class AVLTree : public Tree
     AVL<item> byName, byPrice;
 
 public:
-    AVLTree();
-    ~AVLTree();
+    AVLTree(){};
+    ~AVLTree(){};
     void insert(item Item);
     void remove(item Item);
     void displayBySmallerName();
-    void displayByGreaterName();
+    // void displayByGreaterName();
     void displayBySmallerPrice();
-    void displayByGreaterPrice();
-    void displayItem(string name);
+    // void displayByGreaterPrice();
+    // void displayItem(string name);
 };
