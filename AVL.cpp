@@ -98,16 +98,11 @@ void AVL<T>::update(Node<T> *temp)
 {
     int lh = -1, rh = -1;
     if (temp->left)
-        // cout << "in first condition " << temp->left->key << '\n',
         lh = temp->left->height;
     if (temp->right)
-        // cout << "in second condition " << temp->right->key << '\n',
         rh = temp->right->height;
     temp->height = max(rh, lh) + 1;
     temp->BF = rh - lh;
-    // cout << "in update, in " << temp->key
-    // << " with hight " << temp->height
-    // << " and " << lh << ' ' << rh <<' ' << temp->BF << '\n';
 }
 
 template <class T>
@@ -141,16 +136,8 @@ void AVL<T>::rightRotate(Node<T> *curr)
         parent->left = newRoot;
     newRoot->right = curr;
     curr->left = T2;
-    // cout << "in right rotation " << curr->key << ' '
-    // << curr->left->key << ' '
-    // << newRoot->key <<' '
-    // << newRoot->right->key<< ' '
-    // << root->key << ' '
-    // << root->right->key << ' '
-    // << root->left->key << '\n';
     update(curr);
     update(newRoot);
-    // return newRoot;
 }
 
 template <class T>
@@ -158,15 +145,12 @@ typename AVL<T>::template Node<T> *AVL<T>::balance(Node<T> *curr)
 {
     if (curr->BF < -1)
     {
-        // cout << "in first balance " << curr->key << '\n';
         if (curr->left->BF > 0)
             leftRotate(curr->left);
         rightRotate(curr);
     }
     else if (curr->BF > 1)
     {
-        // cout << "in second balance " << curr->key << '\n';
-
         if (curr->right->BF < 0)
             rightRotate(curr->right);
         leftRotate(curr);

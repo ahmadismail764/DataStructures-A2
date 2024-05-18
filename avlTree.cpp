@@ -18,18 +18,3 @@ void AVLTree::remove(item Item)
 }
 void AVLTree::displayBySmallerName() { return byName.inorder(byName.getRoot()); }
 void AVLTree::displayBySmallerPrice() { return byPrice.inorder(byPrice.getRoot()); }
-
-/* void AVLTree::displayByGreaterName(){
-    return byName.inReversedOrderTraversal();
-}
-
-void AVLTree::displayByGreaterPrice(){
-    return byPrice.inReversedOrderTraversal();
-}
-
-void AVLTree::displayItem(string name){
-    if (byName.find(item(name,"",0)))
-        cout << byName.get(item(name,"",0));
-    else
-        cout << "NOT FOUND!" << '\n';
-} */

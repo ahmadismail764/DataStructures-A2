@@ -13,8 +13,5 @@ public:
     void insert(item Item);
     void remove(item Item);
     void displayBySmallerName();
-    // void displayByGreaterName();
     void displayBySmallerPrice();
-    // void displayByGreaterPrice();
-    // void displayItem(string name);
 };
