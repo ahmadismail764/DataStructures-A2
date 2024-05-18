@@ -17,12 +17,12 @@ class AVL
     Node<T> *root;
 
     // private methods, only developer will use
-    Node<T>* balance(Node<T> *temp); // checks the bf of all nodes and rotates the tree
-    void update(Node<T> *temp);  // updates the height and bf of all nodes after each insertion and deletion
+    Node<T> *balance(Node<T> *temp); // checks the bf of all nodes and rotates the tree
+    void update(Node<T> *temp);      // updates the height and bf of all nodes after each insertion and deletion
     void rightRotate(Node<T> *curr);
     void leftRotate(Node<T> *curr);
     Node<T> *insert(Node<T> *curr, T value);
-    Node<T>* getParent(Node<T>* curr);
+    Node<T> *getParent(Node<T> *curr);
     void remove(Node<T> *curr, T value);
     void remove(Node<T> *curr);
     void removeWithTwoChildren(Node<T> *curr);

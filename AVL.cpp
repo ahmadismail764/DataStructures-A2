@@ -55,11 +55,12 @@ void AVL<T>::postorder(Node<T> *p) const
 }
 
 template <class T>
-void AVL<T>::insert(T value) { 
+void AVL<T>::insert(T value)
+{
     if (root == nullptr)
         root = new Node<T>(value);
-    else 
-        insert(root,value);
+    else
+        insert(root, value);
 }
 
 template <class T>
@@ -79,11 +80,12 @@ typename AVL<T>::template Node<T> *AVL<T>::insert(Node<T> *curr, T value)
 }
 
 template <class T>
-typename AVL<T>::template Node<T> *AVL<T>::getParent(Node<T> *curr){
+typename AVL<T>::template Node<T> *AVL<T>::getParent(Node<T> *curr)
+{
     if (curr == root || root == nullptr)
         return nullptr;
-    Node<T>* temp = root;
-    while(temp)
+    Node<T> *temp = root;
+    while (temp)
         if (temp->left == curr || temp->right == curr)
             return temp;
         else if (curr->key < temp->key)
@@ -91,7 +93,6 @@ typename AVL<T>::template Node<T> *AVL<T>::getParent(Node<T> *curr){
         else
             temp = temp->right;
 }
-
 
 template <class T>
 void AVL<T>::update(Node<T> *temp)
@@ -105,8 +106,8 @@ void AVL<T>::update(Node<T> *temp)
         rh = temp->right->height;
     temp->height = max(rh, lh) + 1;
     temp->BF = rh - lh;
-    // cout << "in update, in " << temp->key 
-    // << " with hight " << temp->height 
+    // cout << "in update, in " << temp->key
+    // << " with hight " << temp->height
     // << " and " << lh << ' ' << rh <<' ' << temp->BF << '\n';
 }
 
@@ -130,7 +131,7 @@ void AVL<T>::leftRotate(Node<T> *curr)
 template <class T>
 void AVL<T>::rightRotate(Node<T> *curr)
 {
-    
+
     Node<T> *newRoot = curr->left;
     Node<T> *T2 = newRoot->right, *parent = getParent(curr);
     if (parent == nullptr)
@@ -142,7 +143,7 @@ void AVL<T>::rightRotate(Node<T> *curr)
     newRoot->right = curr;
     curr->left = T2;
     // cout << "in right rotation " << curr->key << ' '
-    // << curr->left->key << ' ' 
+    // << curr->left->key << ' '
     // << newRoot->key <<' '
     // << newRoot->right->key<< ' '
     // << root->key << ' '
@@ -154,7 +155,7 @@ void AVL<T>::rightRotate(Node<T> *curr)
 }
 
 template <class T>
-typename AVL<T>::template Node<T>* AVL<T>::balance(Node<T> *curr)
+typename AVL<T>::template Node<T> *AVL<T>::balance(Node<T> *curr)
 {
     if (curr->BF < -1)
     {
@@ -195,7 +196,7 @@ void AVL<T>::removeWithTwoChildren(Node<T> *temp)
 template <class T>
 void AVL<T>::remove(Node<T> *temp)
 {
-    Node<T>* parent = getParent(temp);
+    Node<T> *parent = getParent(temp);
     if (parent && parent->right == temp)
     {
         if (temp->right)
@@ -215,27 +216,20 @@ void AVL<T>::remove(Node<T> *temp)
             parent->left = nullptr;
     }
     delete temp;
-    cout << "Finally deleted it!\n";
     return;
 }
 
 template <class T>
-void AVL<T>::remove(Node<T> *curr, T value){
-    cout << "Delete!1\n";
+void AVL<T>::remove(Node<T> *curr, T value)
+{
     if (curr == nullptr)
         return;
     if (curr->key == value)
     {
         if (curr->left && curr->right)
-        {
-            cout << "Delete!2\n";
             removeWithTwoChildren(curr);
-        }
         else
-        {
-            cout << "Delete!3\n";
             remove(curr);
-        }
     }
     if (value < curr->key)
         remove(curr->left, value);
@@ -243,5 +237,4 @@ void AVL<T>::remove(Node<T> *curr, T value){
         remove(curr->right, value);
     update(curr);
     curr = balance(curr);
-    cout << "Deletion Success!\n";
 }

@@ -17,14 +17,13 @@ int main()
     tree.inorder(tree.getRoot());
     cout << '\n';
 
-    // cout << "Deletion Test Cases:\n";
-    // tree.remove(3);
-    // tree.inorder(tree.getRoot());
-    // tree.remove(7);  // Deleting node with one child
-    // tree.remove(15); // Deleting node with two children
-    // cout << "Inorder traversal after deletion:\n";
-    // tree.inorder(tree.getRoot());
-    // cout << endl;
+    cout << "Deletion Test Cases:\n";
+    tree.remove(3);
+    // tree.remove(7);
+    // tree.remove(15);
+    cout << "Inorder traversal after deletion:\n";
+    tree.inorder(tree.getRoot());
+    cout << '\n';
 
     // // Balancing Test Cases
     // cout << "Balancing Test Cases:\n";
@@ -33,7 +32,7 @@ int main()
     // tree.insert(30);
     // cout << "Inorder traversal after balancing (right-heavy):\n";
     // tree.inorder();
-    // cout << endl;
+    // cout << '\n';
 
     // tree = AVL<int>(); // Reset tree
 
@@ -42,7 +41,7 @@ int main()
     // tree.insert(20);
     // cout << "Inorder traversal after balancing (left-heavy):\n";
     // tree.inorder();
-    // cout << endl;
+    // cout << '\n';
 
     // tree = AVL<int>(); // Reset tree
 
@@ -51,19 +50,17 @@ int main()
     // tree.insert(25);
     // cout << "Inorder traversal after balancing (zigzag pattern):\n";
     // tree.inorder();
-    // cout << endl;
+    // cout << '\n';
 
     // // Traversal Test Cases
     // cout << "Traversal Test Cases:\n";
     // cout << "Inorder traversal:\n";
     // tree.inorder();
-    // cout << endl;
+    // cout << '\n';
     // cout << "Preorder traversal:\n";
     // tree.preorder();
-    // cout << endl;
+    // cout << '\n';
     // cout << "Postorder traversal:\n";
     // tree.postorder();
-    // cout << endl;
-
-    // return 0;
+    // cout << '\n';
 }
