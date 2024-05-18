@@ -17,7 +17,6 @@ int main()
     tree.inorder(tree.getRoot());
     cout << '\n';
 
-    // Deletion Test Cases
     cout << "Deletion Test Cases:\n";
     tree.remove(3);
     tree.inorder(tree.getRoot());
