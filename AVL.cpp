@@ -85,32 +85,7 @@ typename AVL<T>::template Node<T> *AVL<T>::leftRotate(Node<T> *curr)
 }
 
 template <class T>
-void AVL<T>::insert(T value)
-{
-    root = insert(root, value);
-    // Node<T> *nNode = new Node<T>(value);
-    // if (root == nullptr)
-    //     return void(root = nNode);
-    // Node<T> *temp = root, *prv = nullptr;
-    // while (temp)
-    // {
-    //     prv = temp;
-    //     if (temp->key == value)
-    //         return;
-    //     if (value < temp->key)
-    //         temp = temp->left;
-    //     else
-    //         temp = temp->right;
-    // }
-    // if (value < prv->key)
-    //     prv->left = nNode;
-    // else
-    //     prv->right = nNode;
-    // nNode->parent = prv;
-    // this->update(root);
-    // this->balance();
-    return;
-}
+void AVL<T>::insert(T value) { root = insert(root, value); }
 
 template <class T>
 typename AVL<T>::template Node<T> *AVL<T>::insert(Node<T> *curr, T value)
