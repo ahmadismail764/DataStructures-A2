@@ -99,7 +99,7 @@ typename AVL<T>::template Node<T> *AVL<T>::insert(Node<T> *curr, T value)
     else
         curr->right = insert(curr->right, value);
     update(curr);
-    balance(curr);
+    // balance(curr);
     return curr;
 }
 
@@ -108,17 +108,16 @@ void AVL<T>::update(Node<T> *temp)
 {
     int lh = -1, rh = -1;
     if (temp->left)
-        cout << "in first condition " << temp->left->key << '\n',
+        // cout << "in first condition " << temp->left->key << '\n',
         lh = temp->left->height;
     if (temp->right)
-        cout << "in second condition " << temp->right->key << '\n',
-
+        // cout << "in second condition " << temp->right->key << '\n',
         rh = temp->right->height;
     temp->height = max(rh, lh) + 1;
     temp->BF = rh - lh;
-    cout << "in update, in " << temp->key 
-    << " with hight " << temp->height 
-    << " and " << lh << ' ' << rh <<' ' << temp->BF << '\n';
+    // cout << "in update, in " << temp->key 
+    // << " with hight " << temp->height 
+    // << " and " << lh << ' ' << rh <<' ' << temp->BF << '\n';
 }
 
 template <class T>
