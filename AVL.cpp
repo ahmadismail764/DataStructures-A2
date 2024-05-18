@@ -116,7 +116,7 @@ void AVL<T>::update(Node<T> *temp)
 }
 
 template <class T>
-typename AVL<T>::template Node<T> *AVL<T>::balance(Node<T> *curr)
+void AVL<T>::balance(Node<T> *curr)
 {
     if (curr->BF < -1)
     {
@@ -130,7 +130,6 @@ typename AVL<T>::template Node<T> *AVL<T>::balance(Node<T> *curr)
             rightRotate(curr->right);
         leftRotate(curr);
     }
-    return curr;
 }
 
 template <class T>
