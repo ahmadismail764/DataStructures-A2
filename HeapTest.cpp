@@ -4,15 +4,21 @@ using namespace std;
 #include "item.cpp"
 
 // Comparison function to compare by price
-function<bool(item&, item&)> compareByPrice = [](item& a, item& b) { return a.getPrice() < b.getPrice(); };
+function<bool(item &, item &)> compareByPrice = [](item &a, item &b)
+{ return a.getPrice() < b.getPrice(); };
 
 // Comparison function to compare by name
-function<bool(item&, item&)> compareByName = [](item& a, item& b) { return a.getName() < b.getName(); };
-function<void(item&)> setByPrice = [](item& a) {a.setComparison(compareByPrice); };
-function<void(item&)> setByName = [](item& a) {a.setComparison(compareByName); };
+function<bool(item &, item &)> compareByName = [](item &a, item &b)
+{ return a.getName() < b.getName(); };
+function<void(item &)> setByPrice = [](item &a)
+{ a.setComparison(compareByPrice); };
+function<void(item &)> setByName = [](item &a)
+{ a.setComparison(compareByName); };
 
-function<bool(item&, item&)> cmp = []( item&x, item&y){return x < y;};
-int main() {
+function<bool(item &, item &)> cmp = [](item &x, item &y)
+{ return x < y; };
+int main()
+{
     vector<item> items = {
         item("Apple", "Fruit", 1.2),
         item("Doughnut", "Dessert", 5.9),
@@ -22,11 +28,11 @@ int main() {
 
     };
     Heap<item> defaultHeap;
-    for (auto& itm : items) {
+    for (auto &itm : items)
+    {
         defaultHeap.insert(itm);
     }
     // Default constructor usage
-
 
     cout << "Heap sorted by price in descending order:" << endl;
     // defaultHeap.heapSort(1,setByPrice);

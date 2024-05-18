@@ -5,7 +5,6 @@ using namespace std;
 template <class T>
 class AVL
 {
-private:
     template <class X> // make the node a template class
     class Node
     {
@@ -19,17 +18,15 @@ private:
     Node<T> *root;
 
     // private methods, only developer will use
-    Node<T>* balance(Node<T>* temp); // checks the bf of all nodes and rotates the tree
-    void update(Node<T>* temp);  // updates the height and bf of all nodes after each insertion and deletion
-    Node<T>* rightRotate(Node<T> *curr);
-    Node<T>* leftRotate(Node<T> *curr);
-    Node<T>* insert(Node<T> *curr,T value);
-    Node<T>* remove(Node<T> *curr,T value);
-    void remove(Node<T>* curr);
-    void removeWithTwoChildren(Node<T>* curr):
-public:
-    AVL() { root = new Node<T>(); }
-    Node<T> *nodeWithMinmumValue() const;
+    Node<T> *balance(Node<T> *temp); // checks the bf of all nodes and rotates the tree
+    void update(Node<T> *temp);      // updates the height and bf of all nodes after each insertion and deletion
+    Node<T> *rightRotate(Node<T> *curr);
+    Node<T> *leftRotate(Node<T> *curr);
+    Node<T> *insert(Node<T> *curr, T value);
+    Node<T> *remove(Node<T> *curr, T value);
+    void remove(Node<T> *curr);
+    void removeWithTwoChildren(Node<T> *curr) : public : AVL() { root = new Node<T>(); }
+    Node<T> *nodeWithMinValue() const;
     void visit(Node<T> *node) const { cout << node->key << " " << node->height << '\n'; }
 
     void breadthFirst() const;

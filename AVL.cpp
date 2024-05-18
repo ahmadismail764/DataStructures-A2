@@ -87,7 +87,7 @@ typename AVL<T>::template Node<T> *AVL<T>::leftRotate(Node<T> *curr)
 template <class T>
 void AVL<T>::insert(T value)
 {
-    root = insert(root,value);
+    root = insert(root, value);
     // Node<T> *nNode = new Node<T>(value);
     // if (root == nullptr)
     //     return void(root = nNode);
@@ -113,13 +113,14 @@ void AVL<T>::insert(T value)
 }
 
 template <class T>
-typename AVL<T>::template Node<T>* AVL<T>::insert(Node<T> *curr,T value){
+typename AVL<T>::template Node<T> *AVL<T>::insert(Node<T> *curr, T value)
+{
     if (curr == nullptr)
         return new Node<T>(value);
     if (value < curr->key)
-        curr->left = insert(curr->left,value);
-    else 
-        curr->right = insert(curr->right,value);
+        curr->left = insert(curr->left, value);
+    else
+        curr->right = insert(curr->right, value);
     update(curr);
     return balance(curr);
 }
@@ -135,10 +136,10 @@ void AVL<T>::remove(T value)
         if (temp->key == value)
             if (temp->left && temp->right)
                 // return removeWithTwoChildren(temp);
-            else
-                // return remove(temp);
-        else if (value < temp->key)
-            temp = temp->left;
+                else
+                    // return remove(temp);
+                    else if (value < temp->key)
+                        temp = temp->left;
             else
                 temp = temp->right;
     }
@@ -148,24 +149,28 @@ void AVL<T>::remove(T value)
 }
 
 template <class T>
-void AVL<T>::update(Node<T>* temp){
-    int lh = -1,rh = -1;
+void AVL<T>::update(Node<T> *temp)
+{
+    int lh = -1, rh = -1;
     if (temp->left)
         lh = temp->left->height;
     if (temp->right)
         rh = temp->right->height;
-    temp->height = max(rh,lh) + 1;
-    temp->BF = rh - lh;   
+    temp->height = max(rh, lh) + 1;
+    temp->BF = rh - lh;
 }
 
 template <class T>
-typename AVL<T>::template Node<T>* AVL<T>::balance(Node<T> *curr){
-    if (curr->BF < -1){
+typename AVL<T>::template Node<T> *AVL<T>::balance(Node<T> *curr)
+{
+    if (curr->BF < -1)
+    {
         if (curr->left->BF > 0)
             leftRotate(curr->left);
         rightRotate(curr);
     }
-    else if (curr->BF > 1){
+    else if (curr->BF > 1)
+    {
         if (curr->right->BF < 0)
             rightRotate(curr->right);
         leftRotate(curr);
