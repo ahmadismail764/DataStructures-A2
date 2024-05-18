@@ -12,7 +12,7 @@ class AVL
         T key;
         int height, BF; // balance factor (right - left)
         Node *left, *right, *parent;
-        Node(X value = 0) : key(value), height(0), left(nullptr), right(nullptr), parent(nullptr) {}
+        Node(X value = 0) : key(value), height(0), BF(0), left(nullptr), right(nullptr), parent(nullptr) {}
     };
     Node<T> *root;
 
