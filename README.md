@@ -1,4 +1,4 @@
-# DataStructures-A2
+# Data Structures Implementation
 
 This repository contains implementations of various data structures and their applications. The project is designed to demonstrate the functionality of data structures such as Binary Search Trees (BST), AVL Trees, and Heaps, along with their integration into a menu-driven program.
 
