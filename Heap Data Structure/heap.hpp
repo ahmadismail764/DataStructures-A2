@@ -1,6 +1,5 @@
-#include <bits/stdc++.h>
-#include "Tree.hpp"
-using namespace std;
+#include "../include/Tree.hpp"
+#include "../include/item.cpp"
 
 template <typename T>
 class Heap : public Tree

@@ -1,5 +1,4 @@
-#include "AVLTree.hpp"
-using namespace std;
+#include "avlTree.hpp"
 bool compByName(item &first, item &second) { return first.getName() < second.getName(); }
 bool compByPrice(item &first, item &second) { return first.getPrice() < second.getPrice(); }
 

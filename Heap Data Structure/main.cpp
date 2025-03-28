@@ -1,7 +1,4 @@
 #include "Heap.cpp"
-#include <bits/stdc++.h>
-using namespace std;
-#include "item.cpp"
 
 // Comparison function to compare by price
 function<bool(item &, item &)> compareByPrice = [](item &a, item &b)
@@ -17,6 +14,7 @@ function<void(item &)> setByName = [](item &a)
 
 function<bool(item &, item &)> cmp = [](item &x, item &y)
 { return x < y; };
+
 int main()
 {
     vector<item> items = {
@@ -29,41 +27,21 @@ int main()
     };
     Heap<item> defaultHeap;
     for (auto &itm : items)
-    {
         defaultHeap.insert(itm);
-    }
-    // Default constructor usage
 
-    cout << "Heap sorted by price in descending order:" << endl;
-    // defaultHeap.heapSort(1,setByPrice);
-    // defaultHeap.printHeap();
+    // Default constructor usage
+    cout << "Heap sorted by price in descending order:\n";
 
     // Constructor that takes an array
     Heap<item> arrayHeap(items.data(), items.size());
-    cout << "Heap sorted by price in descending order:" << endl;
-    // arrayHeap.heapSort( true, setByPrice);
-    // arrayHeap.printHeap();
+    cout << "Heap sorted by price in descending order:\n";
 
     // Switch comparison function to compare by name
-    cout << "Heap after switching comparison to name (sorted by name):" << endl;
-    // arrayHeap.heapSort(true, setByName);
-    // arrayHeap.printHeap();
+    cout << "Heap after switching comparison to name (sorted by name):\n";
 
     // Add a new item
     item newItem("Eclair", "Dessert", 2.0);
     arrayHeap.insert(newItem);
-
-    cout << "Heap after adding new item (Eclair):" << endl;
-    // arrayHeap.printHeap();
-
+    cout << "Heap after adding new item (Eclair):\n";
     arrayHeap.displayHeap(setByPrice);
-
-    // // Remove the root item
-    // item removedItem = arrayHeap.remove();
-    // cout << "Removed item: " << removedItem.getName() << endl;
-    //
-    // cout << "Heap after removing root item:" << endl;
-    // arrayHeap.printHeap();
-
-    return 0;
 }

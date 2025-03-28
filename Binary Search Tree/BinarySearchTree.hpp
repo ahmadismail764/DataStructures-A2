@@ -1,7 +1,6 @@
 #include "BST.cpp"
-#include "item.cpp"
-#include "Tree.hpp"
-using namespace std;
+#include "../include/item.cpp"
+#include "../include/Tree.hpp"
 
 class BinarySearchTree : public Tree
 {

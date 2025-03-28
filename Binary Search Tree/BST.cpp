@@ -1,5 +1,4 @@
 #include "BST.hpp"
-using namespace std;
 
 template <class T>
 BST<T>::BST() {}

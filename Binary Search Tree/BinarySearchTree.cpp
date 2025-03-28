@@ -1,5 +1,4 @@
 #include "BinarySearchTree.hpp"
-using namespace std;
 
 bool compByName(item &first, item &second) { return first.getName() < second.getName(); }
 
